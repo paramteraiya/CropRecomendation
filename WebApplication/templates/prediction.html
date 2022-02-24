@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Crop Yield Prediction</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/728d1d3dec.js" crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="svgs">
+        <img src="../static/imgs/bg_svg.svg">
+    </div>
+    <div class="page" id="part1">
+        <div class="info">
+            <div class="heading">
+                <div class="title text-primary">Crop Yield Prediction</div>
+                <div class="title-support">using Machine Learning</div>
+            </div>
+            
+            <div class="btn-grp">
+                <a href="#part3" class="try">
+                    Try it!
+                </a>
+            </div>
+            
+        </div>
+        <div class="imgContainer">
+            <!-- <img src="imgs/farm1.jpg" alt=""> -->
+            <img src="../static/imgs/flowers.svg" alt="">
+        </div>
+        <div class="scrollIndicator"></div>
+    </div>
+    <div class="page" id="part2">
+        <div class="card myCard">
+            <div class="myCard-img">
+                <img src="../static/imgs/input.svg" alt="">
+            </div>
+            <div class="myCard-title text-blue">Enter details</div>
+            <div class="myCard-body ">Provide information for the crop like its type, the area of the farm, the soil category and the district in which it is to be grown</div>
+        </div>
+        <div class="card myCard">
+            <div class="myCard-img">
+                <img src="../static/imgs/weather.svg" alt="">
+            </div>
+            <div class="myCard-title text-green">Live weather Fetch</div>
+            <div class="myCard-body ">Current weather details like the temperature, humidity, and precipitaion are fetched automatically from the internet to be used for prediction</div>
+        </div>
+        <div class="card myCard">
+            <div class="myCard-img">
+                <img src="../static/imgs/model.svg" alt="">
+            </div>
+            <div class="myCard-title text-orange">Prediction</div>
+            <div class="myCard-body ">A Random Forest ML model, trained on past 20 years of data, is used to predict the approximate crop yield</div>
+        </div>
+        <div class="scrollIndicator"></div>
+    </div>
+    <div class="container p-5 page" id="part3">
+        <div class="imgContainer">
+            <img src="../static/imgs/plant.svg" alt="">
+        </div>
+        <div class="card shadow-lg col-6 p-0 mx-auto">
+            <div class="card-header text-primary text-center">
+                <h3><u>Crop Yield Predictor</u></h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="N">Enter Value of N:</label>
+                    <input type="number" id="N" name="n-value">
+                </div>
+                <div class="form-group">
+                    <label for="P">Enter Value of P:</label>
+                    <input type="number" id="P" name="p-value">
+                </div>
+                <div class="form-group">
+                    <label for="K">Enter Value of K:</label>
+                    <input type="number" id="K" name="k-value">
+                </div>
+                <div class="form-group">
+                    <label for="temperature">Enter Value of temperature:</label>
+                    <input type="number" id="temperature" name="temperature">
+                </div>
+                <div class="form-group">
+                    <label for="humidity">Enter Value of humidity:</label>
+                    <input type="number" id="humidity" name="humidity">
+                </div>
+                <div class="form-group">
+                    <label for="ph">Enter Value of ph:</label>
+                    <input type="number" id="ph" name="ph">
+                </div>
+                <div class="form-group">
+                    <label for="rainfall">Enter Value of rainfall:</label>
+                    <input type="number" id="rainfall" name="rainfall">
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary mx-auto" id="submit">Predict</button>
+                </div>
+            </div>
+            <div class="card-footer" id="prediction">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="../static/js/main.js"></script>
+</body>
+
+</html>
