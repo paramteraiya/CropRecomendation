@@ -8,7 +8,6 @@ import pickle
 import numpy as np
 from scipy import stats
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
@@ -17,11 +16,11 @@ cors = CORS(app)
 
 @app.after_request
 def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  response.headers.add('Access-Control-Allow-Credentials', 'true')
-  return response
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 
 # Loading all Crop Recommendation Models
@@ -51,28 +50,28 @@ def crop_prediction(input_data):
             crop_xgb_pipeline.predict(input_data)[0]
         ],
         "xgb_model_probability": max(crop_xgb_pipeline.predict_proba(input_data)[0])
-        * 100,
+                                 * 100,
         "rf_model_prediction": crop_label_dict[crop_rf_pipeline.predict(input_data)[0]],
         "rf_model_probability": max(crop_rf_pipeline.predict_proba(input_data)[0])
-        * 100,
+                                * 100,
         "knn_model_prediction": crop_label_dict[
             crop_knn_pipeline.predict(input_data)[0]
         ],
         "knn_model_probability": max(crop_knn_pipeline.predict_proba(input_data)[0])
-        * 100,
+                                 * 100,
     }
 
     all_predictions = [
-            prediction_data["xgb_model_prediction"],
-            prediction_data["rf_model_prediction"],
-            prediction_data["knn_model_prediction"],
-        ]
+        prediction_data["xgb_model_prediction"],
+        prediction_data["rf_model_prediction"],
+        prediction_data["knn_model_prediction"],
+    ]
 
     all_probs = [
-            prediction_data["xgb_model_probability"],
-            prediction_data["rf_model_probability"],
-            prediction_data["knn_model_probability"],
-        ]
+        prediction_data["xgb_model_probability"],
+        prediction_data["rf_model_probability"],
+        prediction_data["knn_model_probability"],
+    ]
 
     if len(set(all_predictions)) == len(all_predictions):
         prediction_data["final_prediction"] = all_predictions[all_probs.index(max(all_probs))]
@@ -81,9 +80,9 @@ def crop_prediction(input_data):
 
     return prediction_data
 
-def predictcrop(input_dictionary_object):
-    try:
 
+def predict_crop(input_dictionary_object):
+    try:
         column_names = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
         input_data = np.asarray([float(input_dictionary_object[i].strip()) for i in column_names]).reshape(
             1, -1
@@ -92,8 +91,7 @@ def predictcrop(input_dictionary_object):
         json_obj = json.dumps(prediction_data, default=convert)
         return json_obj
     except:
-        return json.dumps({"error":"Please Enter Valid Data"}, default=convert)
-
+        return json.dumps({"error": "Please Enter Valid Data"}, default=convert)
 
 
 class User(db.Model):
@@ -110,12 +108,15 @@ class User(db.Model):
 def index():
     if session.get('logged_in'):
         return render_template('prediction.html')
+        # return render_template('prediction.html', jsonfile=json.dumps(response_data))
     else:
         return render_template('index.html', message="Crop yield prediction system!")
+
 
 @app.route('/guest-user', methods=['GET'])
 def guest_user():
     return render_template('prediction.html')
+
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
@@ -149,17 +150,25 @@ def logout():
     session['logged_in'] = False
     return redirect(url_for('index'))
 
+
 @app.route('/predict_crop', methods=['GET', 'POST'])
 def predict_crop_api():
     if request.method == "POST":
         form_values = request.get_data()
         form_values = json.loads(form_values)
         print("form_values: ", form_values)
-        response = predictcrop(form_values)
-        return f"{response}"
-    return "None"
+        response = predict_crop(form_values)
+        print("result:", response)
+        return response
+        # return render_template("prediction.html", jsonfile=json.dumps(response_data))
+    # return render_template("prediction.html", jsonfile=json.dumps({"Error": "Not valid input"}))
+    # return render_template("prediction.html", jsonfile=response)
 
-if(__name__ == '__main__'):
+@app.route('/result', methods=['GET', 'POST'])
+def result():
+    return render_template('result.html', jsonfile=json.dumps({"param":"something"}))
+
+if __name__ == '__main__':
     app.secret_key = "ThisIsNotASecret:p"
     db.create_all()
     app.run()

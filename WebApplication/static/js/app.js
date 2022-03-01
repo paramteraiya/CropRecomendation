@@ -14,16 +14,16 @@ $(document).ready(function(){
         console.log("N: ", N);
         console.log("P: ", P);
         console.log("K: ", K);
-        console.log("temprature: ", temprature);
+        console.log("temperature: ", temprature);
         console.log("humidity: ", humidity);
         console.log("ph: ", ph);
         console.log("rainfall: ", rainfall);
-
+        // column_names = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
         _dict = {
             "N": N,
             "P": P,
             "K": K,
-            "temprature": temprature,
+            "temperature": temprature,
             "humidity": humidity,
             "ph": ph,
             "rainfall":rainfall
@@ -37,10 +37,13 @@ $(document).ready(function(){
             contentType: "json",
             success: function (data) {
                 alert("Data sent");
+                // alert(data);
             }
         });
         //Reset the form here and send toster
 
+        // $('#prediction').show()
+        window.location.href = "http://localhost:5000/result";
     });
     
 })
