@@ -43,7 +43,7 @@ $(document).ready(function(){
         //Reset the form here and send toster
 
         // $('#prediction').show()
-        window.location.href = "http://localhost:5000/result";
+        // window.location.href = "http://localhost:5000/result";
     });
     
 })

@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 cors = CORS(app)
 
+result = None
 
 @app.after_request
 def after_request(response):
@@ -159,14 +160,18 @@ def predict_crop_api():
         print("form_values: ", form_values)
         response = predict_crop(form_values)
         print("result:", response)
-        return response
-        # return render_template("prediction.html", jsonfile=json.dumps(response_data))
-    # return render_template("prediction.html", jsonfile=json.dumps({"Error": "Not valid input"}))
-    # return render_template("prediction.html", jsonfile=response)
+        return redirect(url_for('result'))
+    return redirect(url_for("login")) 
+    
+        # return render_template('result.html', jsonfile=json.dumps(response))
+    # return "Result"
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
-    return render_template('result.html', jsonfile=json.dumps({"param":"something"}))
+    session['logged_in'] = True
+    # return render_template('result.html', jsonfile=json.dumps({"result":"param"}))
+    return "hello"
+
 
 if __name__ == '__main__':
     app.secret_key = "ThisIsNotASecret:p"
