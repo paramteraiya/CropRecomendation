@@ -160,17 +160,15 @@ def predict_crop_api():
         print("form_values: ", form_values)
         response = predict_crop(form_values)
         print("result:", response)
-        return redirect(url_for('result'))
-    return redirect(url_for("login")) 
+        return jsonify(response)
     
         # return render_template('result.html', jsonfile=json.dumps(response))
     # return "Result"
 
-@app.route('/result', methods=['GET', 'POST'])
-def result():
+@app.route('/weather', methods=['GET', 'POST'])
+def result1():
     session['logged_in'] = True
-    # return render_template('result.html', jsonfile=json.dumps({"result":"param"}))
-    return "hello"
+    return render_template('weather1.html')
 
 
 if __name__ == '__main__':
