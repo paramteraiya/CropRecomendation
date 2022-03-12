@@ -170,6 +170,10 @@ def result1():
     session['logged_in'] = True
     return render_template('weather1.html')
 
+@app.route('/news', methods=['GET', 'POST'])
+def news():
+    session['logged_in'] = True
+    return render_template('news.html')
 
 if __name__ == '__main__':
     app.secret_key = "ThisIsNotASecret:p"

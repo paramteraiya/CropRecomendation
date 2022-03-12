@@ -57,9 +57,10 @@ $(document).ready(function(){
         //Reset the form here and send toster
 
         console.log("response_data:", response_data);
+        var obj = JSON.parse(response_data);
         if(flag==2){
             $('#prediction').show()
-            $('#prediction').append(`<div>`+response_data+`</div>`);    
+            $('#prediction').append(`<div>`+obj.final_prediction+`</div>`);    
             
             var obj = JSON.parse(response_data);
 
@@ -68,7 +69,7 @@ $(document).ready(function(){
             var image_name = obj.final_prediction;
             $('#part3').append(`<img src="../static/imgs/`+image_name+`.jpg" alt="">'`);
             console.log(`'`+image_name+`'`);
-            $('#part3').append(`<p>`+crop_data[`'`+image_name+`'`]+`</p>`);
+            $('#prediction').append(`<p id='prediction-text'>`+crop_data[image_name]+`</p>`);
         }
         });
     $('div#weather').click(function(){

@@ -150,3 +150,6 @@ body {
 #part3 .imgContainer img {
     width: 100%;
 }
+#prediction-text{
+    display: block;
+}
